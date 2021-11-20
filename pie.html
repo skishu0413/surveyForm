@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<!--
+Name:Suraj Khadka
+Course: CSC443
+Assignment: 3
+-->
+<html>
+
+<head>
+    <title>Pies</title>
+
+    <script language="JavaScript">
+        // <!--
+
+        // var result = {};
+
+        function drawPie(obj, data) {
+            const colors = ["#ff0000", "#bf4000", "#808000", "#40bf00", "#00ff00"];
+
+            perc2 = 100;
+            perc1 = 100;
+
+            var start = 0;
+            var end = 0.5;
+
+            var total = data.reduce((x, y) => x + y);
+
+            // calculating the average frequency
+            f1 = data[0] / total * 100;
+            f2 = data[1] / total * 100;
+            f3 = data[2] / total * 100;
+            f4 = data[3] / total * 100;
+            f5 = data[4] / total * 100;
+
+            // setting the arcs  for each category
+            perc1 = f1 * 0.01 * Math.PI * 2;
+            perc2 = f2 * 0.01 * Math.PI * 2;
+            perc3 = f3 * 0.01 * Math.PI * 2;
+            perc4 = f4 * 0.01 * Math.PI * 2;
+            perc5 = f5 * 0.01 * Math.PI * 2;
+
+
+
+            // Creating piechart for the current canvas
+            if (obj.getContext) {
+                var ctx = obj.getContext('2d');
+
+                ctx.fillStyle = colors[0]; // color 1
+                ctx.beginPath();
+                ctx.moveTo(25, 25);
+                ctx.arc(25, 25, 25, 0, perc1);
+                ctx.closePath();
+                ctx.fill();
+
+
+                ctx.fillStyle = colors[1]; // color 2
+                ctx.beginPath();
+                ctx.moveTo(25, 25);
+                ctx.arc(25, 25, 25, perc1, perc1 + perc2);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = colors[2]; // color 3
+                ctx.beginPath();
+                ctx.moveTo(25, 25);
+                ctx.arc(25, 25, 25, perc1 + perc2, perc1 + perc2 + perc3);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = colors[3]; // color 4
+                ctx.beginPath();
+                ctx.moveTo(25, 25);
+                ctx.arc(25, 25, 25, perc1 + perc2 + perc3, perc1 + perc2 + perc3 + perc4);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = colors[4]; // color 5
+                ctx.beginPath();
+                ctx.moveTo(25, 25);
+                ctx.arc(25, 25, 25, perc1 + perc2 + perc3 + perc4, perc1 + perc2 + perc3 + perc4 + perc5);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.stroke();
+            }
+        }
+
+        // Function for drawing all the 8 pie charts for each question
+        function drawAll() {
+            var result = {};
+            updateData('http://localhost:3000/', { answer: 42 })
+                .then(data => {
+                    // console.log(data); // JSON data parsed by `response.json()` call
+                    drawPie(document.getElementById("Can1"), data['0']);
+                    drawPie(document.getElementById("Can2"), data['1']);
+                    drawPie(document.getElementById("Can3"), data['2']);
+                    drawPie(document.getElementById("Can4"), data['3']);
+                    drawPie(document.getElementById("Can5"), data['4']);
+                    drawPie(document.getElementById("Can6"), data['5']);
+                    drawPie(document.getElementById("Can7"), data['6']);
+                    drawPie(document.getElementById("Can8"), data['7']);
+
+
+                    // calculating average and total for Q1
+                    var total = data['0'].reduce((x, y) => x + y);
+                    var average = (1 * data['0'][0] + 2 * data['0'][1] + 3 * data['0'][2] + 4 * data['0'][3] + 5 * data['0'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average1').innerHTML = average;
+                    document.getElementById('total1').innerHTML = total;
+
+                    // calculating average and total for Q2
+                    total = data['1'].reduce((x, y) => x + y);
+                    average = (1 * data['1'][0] + 2 * data['1'][1] + 3 * data['1'][2] + 4 * data['1'][3] + 5 * data['1'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average2').innerHTML = average;
+                    document.getElementById('total2').innerHTML = total;
+
+                    // calculating average and total for Q3
+                    total = data['2'].reduce((x, y) => x + y);
+                    average = (1 * data['2'][0] + 2 * data['2'][1] + 3 * data['2'][2] + 4 * data['2'][3] + 5 * data['2'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average3').innerHTML = average;
+                    document.getElementById('total3').innerHTML = total;
+
+
+                    // calculating average and total for Q4
+                    total = data['3'].reduce((x, y) => x + y);
+                    average = (1 * data['3'][0] + 2 * data['3'][1] + 3 * data['3'][2] + 4 * data['3'][3] + 5 * data['3'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average4').innerHTML = average;
+                    document.getElementById('total4').innerHTML = total;
+
+                    // calculating average and total for Q5
+                    total = data['4'].reduce((x, y) => x + y);
+                    average = (1 * data['4'][0] + 2 * data['4'][1] + 3 * data['4'][2] + 4 * data['4'][3] + 5 * data['4'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average5').innerHTML = average;
+                    document.getElementById('total5').innerHTML = total;
+
+                    // calculating average and total for Q6
+                    total = data['5'].reduce((x, y) => x + y);
+                    average = (1 * data['5'][0] + 2 * data['5'][1] + 3 * data['5'][2] + 4 * data['5'][3] + 5 * data['5'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average6').innerHTML = average;
+                    document.getElementById('total6').innerHTML = total;
+
+                    // calculating average and total for Q7
+                    total = data['6'].reduce((x, y) => x + y);
+                    average = (1 * data['6'][0] + 2 * data['6'][1] + 3 * data['6'][2] + 4 * data['6'][3] + 5 * data['6'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average7').innerHTML = average;
+                    document.getElementById('total7').innerHTML = total;
+
+                    // calculating average and total for Q8
+                    total = data['7'].reduce((x, y) => x + y);
+                    average = (1 * data['7'][0] + 2 * data['7'][1] + 3 * data['7'][2] + 4 * data['7'][3] + 5 * data['7'][4]) / total;
+                    average = Math.round(average*100)/100;
+                    document.getElementById('average8').innerHTML = average;
+                    document.getElementById('total8').innerHTML = total;
+
+                });
+        }
+
+        async function updateData(url = '', data = {}) {
+            // Default options are marked with *
+            const response = await fetch(url, {
+                method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify(data) // body data type must match "Content-Type" header
+            });
+            return response.json(); // parses JSON response into native JavaScript objects
+        }
+
+//-->
+    </script>
+	<style>
+	body {
+			background-color:#fff9e6;
+	}
+	table, td {
+			border: 2px solid blue;
+	}
+	td {
+			border: 1  px solid blue;
+	}
+    
+	</style>
+</head>
+
+<body onLoad="drawAll();">
+    <table border=1 align="center">
+		<tr>
+			<th colspan="5" style="background-color:#f2f2f2;">Survey(csc443)Results</th>
+		</tr>
+        <tr>
+            <td>#</td>
+            <td>Question</td>
+            <td>Average</td>
+            <td>Percents </td>
+            <td>Total</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>This course has helped me develop problem solving skills.</td>
+            <td id="average1">Average for Q1</td>
+            <td> <canvas id="Can1" width="50" height="50" ></canvas> </td>
+            <td id="total1"> Total for Q1</td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>This course was very challenging</td>
+            <td id="average2">Average for Q2</td>
+            <td> <canvas id="Can2" width="50" height="50" ></canvas> </td>
+            <td id="total2"> Total for Q2</td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>My programming abilities increased after taking this course.</td>
+            <td id="average3">Average for Q3</td>
+            <td> <canvas id="Can3" width="50" height="50" ></canvas> </td>
+            <td id="total3"> Total for Q3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>I will list 'Javascript' on my resume.</td>
+            <td id="average4">Average for Q4</td>
+            <td> <canvas id="Can4" width="50" height="50" ></canvas> </td>
+            <td id="total4"> Total for Q4</td>
+        </tr>
+
+        <tr>
+            <td>5</td>
+            <td>I will list 'Perl scripting' on my resume.</td>
+            <td id="average5">Average for Q5</td>
+            <td> <canvas id="Can5" width="50" height="50" ></canvas> </td>
+            <td id="total5"> Total for Q5</td>
+        </tr>
+
+        <tr>
+            <td>6</td>
+            <td>I will list 'PHP' on my resume.</td>
+            <td id="average6">Average for Q6</td>
+            <td> <canvas id="Can6" width="50" height="50" ></canvas> </td>
+            <td id="total6"> Total for Q6</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>If i had more time i would have done better in this course.</td>
+            <td id="average7">Average for Q7</td>
+            <td> <canvas id="Can7" width="50" height="50" ></canvas> </td>
+            <td id="total7"> Total for Q7</td>
+        </tr>
+
+        <tr>
+            <td>8</td>
+            <td> This course has helped me develop problem solving skills.</td>
+            <td id="average8">Average for Q8</td>
+            <td> <canvas id="Can8" width="50" height="50" ></canvas> </td>
+            <td id="total8"> Total for Q8</td>
+        </tr>
+
+    </table>
+    <br>
+    <br>
+    <table border=1 align="center">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td bgcolor="#ff0000">&nbsp</td>
+            <td bgcolor="#bf4000">&nbsp</td>
+            <td bgcolor="#808000">&nbsp</td>
+            <td bgcolor="#40bf00">&nbsp</td>
+            <td bgcolor="#00ff00">&nbsp</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
